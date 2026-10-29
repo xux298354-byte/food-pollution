@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>食品污染的分类 · 拓展阅读</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231f2d3d'/%3E%3Cpath d='M16 16h10v10H16zM26 26h10v10H26zM16 36h10v10H16z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --ink:#1a2a38;
+    --muted:#5c6b78;
+    --line:#d8dee4;
+    --line-strong:#9fb0bd;
+    --bg:#ffffff;
+    --head-bg:#f3f6f8;
+    --accent:#1a5b4d;
+    --accent-soft:#e6f0ec;
+    --bio:#2e7d32;
+    --bio-soft:#e8f5e9;
+    --chem:#e65100;
+    --chem-soft:#fff3e0;
+    --phys:#1565c0;
+    --phys-soft:#e3f2fd;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,"Segoe UI",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:28px 18px 60px;}
+
+  h1{
+    font-size:clamp(24px,4.5vw,32px);font-weight:700;
+    text-align:center;margin:8px 0 4px;
+    color:#123a30;
+  }
+  .sub{
+    text-align:center;color:var(--muted);
+    font-size:14px;margin-bottom:26px;
+  }
+  h2{
+    font-size:19px;font-weight:700;margin:34px 0 14px;
+    padding-left:12px;border-left:4px solid var(--accent);
+    color:#0f3329;
+  }
+
+  /* ===== 流程图：分类树 ===== */
+  .tree{
+    border:1px solid var(--line);border-radius:10px;
+    padding:26px 14px 18px;
+    background:linear-gradient(180deg,#fbfdfc 0%,#ffffff 60%);
+  }
+  .root-node{
+    width:max-content;max-width:100%;margin:0 auto;
+    background:#1f2d3d;color:#fff;
+    font-size:16px;font-weight:700;padding:8px 26px;border-radius:8px;
+    box-shadow:0 2px 6px rgba(31,45,61,.18);
+  }
+  .branches{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+    margin-top:22px;position:relative;
+  }
+  .branches::before{
+    content:"";position:absolute;top:-22px;left:50%;transform:translateX(-50%);
+    width:2px;height:22px;background:var(--line-strong);
+  }
+  .branch{
+    border:1.5px solid var(--line-strong);border-radius:8px;padding:12px 10px;
+    text-align:center;background:#fff;
+  }
+  .branch .b-name{font-size:16px;font-weight:700;margin-bottom:8px;}
+  .branch .leaves{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;}
+  .leaf{
+    font-size:13px;border:1px solid var(--line-strong);
+    border-radius:999px;padding:3px 12px;color:var(--ink);
+  }
+  .leaf b{font-weight:700;}
+  /* 生物性污染：绿 */
+  .branch.bio{border-color:#7cb342;background:linear-gradient(180deg,#f7fbf5,#ffffff);}
+  .branch.bio .b-name{color:var(--bio);}
+  .branch.bio .leaf{background:var(--bio-soft);border-color:#a5d6a7;color:#1b5e20;}
+  /* 化学性污染：橙 */
+  .branch.chem{border-color:#fb8c00;background:linear-gradient(180deg,#fffaf2,#ffffff);}
+  .branch.chem .b-name{color:var(--chem);}
+  .branch.chem .leaf{background:var(--chem-soft);border-color:#ffcc80;color:#bf360c;}
+  /* 物理性污染：蓝 */
+  .branch.phys{border-color:#42a5f5;background:linear-gradient(180deg,#f5faff,#ffffff);}
+  .branch.phys .b-name{color:var(--phys);}
+  .branch.phys .leaf{background:var(--phys-soft);border-color:#90caf9;color:#0d47a1;}
+  @media (max-width:640px){
+    .branches{grid-template-columns:1fr;gap:16px;}
+    .branches::before{display:none;}
+  }
+
+  /* ===== 表格 ===== */
+  table{
+    width:100%;border-collapse:collapse;font-size:13.5px;
+    table-layout:fixed;
+  }
+  col.cat{width:9%;}
+  col.form{width:11%;}
+  col.src{width:22%;}
+  col.food{width:17%;}
+  col.harm{width:20%;}
+  col.ctl{width:21%;}
+  th,td{
+    border:1px solid var(--line);padding:9px 10px;vertical-align:top;
+    word-break:break-word;
+  }
+  th{background:#263238;color:#fff;font-weight:700;text-align:center;font-size:13px;}
+  td.cat{text-align:center;font-weight:700;color:#fff;vertical-align:middle;}
+  td.form{font-weight:600;}
+  .cat-row td{border-top:2px solid #b0bec5;}
+  /* 类别行：整行淡色，类别列深色 */
+  tr.bio td{background:#fafdf9;}
+  tr.bio td.cat{background:var(--bio);}
+  tr.bio:hover td{background:var(--bio-soft);}
+  tr.chem td{background:#fffcf7;}
+  tr.chem td.cat{background:var(--chem);}
+  tr.chem:hover td{background:var(--chem-soft);}
+  tr.phys td{background:#f8fbff;}
+  tr.phys td.cat{background:var(--phys);}
+  tr.phys:hover td{background:var(--phys-soft);}
+  tr.bio:hover td.cat{background:var(--bio);}
+  tr.chem:hover td.cat{background:var(--chem);}
+  tr.phys:hover td.cat{background:var(--phys);}
+  @media (max-width:720px){
+    table{font-size:12px;}
+    th,td{padding:7px 6px;}
+  }
+
+  footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:36px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>食品污染的分类</h1>
+  <p class="sub">《食品有害物质分析技术》第一章 1.2 节配套拓展阅读</p>
+
+  <!-- ===== 一、分类流程图 ===== -->
+  <h2>一、食品污染分类流程图</h2>
+  <div class="tree">
+    <div class="root-node">食品污染</div>
+    <div class="branches">
+      <div class="branch bio">
+        <div class="b-name">生物性污染</div>
+        <div class="leaves">
+          <span class="leaf"><b>微生物</b></span>
+          <span class="leaf"><b>寄生虫</b></span>
+          <span class="leaf"><b>病毒</b></span>
+        </div>
+      </div>
+      <div class="branch chem">
+        <div class="b-name">化学性污染</div>
+        <div class="leaves">
+          <span class="leaf"><b>农药残留</b></span>
+          <span class="leaf"><b>兽药残留</b></span>
+          <span class="leaf"><b>重金属</b></span>
+          <span class="leaf"><b>添加剂滥用</b></span>
+        </div>
+      </div>
+      <div class="branch phys">
+        <div class="b-name">物理性污染</div>
+        <div class="leaves">
+          <span class="leaf"><b>杂物</b></span>
+          <span class="leaf"><b>放射性物质</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 二、分类明细表 ===== -->
+  <h2>二、食品污染分类明细表</h2>
+  <table>
+    <colgroup>
+      <col class="cat"><col class="form"><col class="src"><col class="food"><col class="harm"><col class="ctl">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>类别</th><th>污染形式</th><th>主要来源</th><th>易染食品</th><th>健康危害</th><th>防控要点</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="cat-row bio">
+        <td class="cat" rowspan="3">生物性污染</td>
+        <td class="form">微生物污染</td>
+        <td>细菌（致病性大肠杆菌、沙门氏菌）、霉菌、酵母菌</td>
+        <td>肉类、奶类等富含蛋白质食品保存不当；大米、小麦、花生等潮湿环境滋生霉菌</td>
+        <td>腹泻、腹痛、呕吐；霉菌毒素致食物中毒</td>
+        <td>冷链保藏、控制贮存温湿度、生熟分开、彻底加热、防霉防潮</td>
+      </tr>
+      <tr class="bio">
+        <td class="form">寄生虫污染</td>
+        <td>绦虫（猪肉绦虫、牛肉绦虫）、蛔虫、肝吸虫等</td>
+        <td>未充分煮熟的猪牛肉、生食或半生食淡水鱼虾</td>
+        <td>肠道寄生、消化不良、腹痛腹泻，严重时贫血</td>
+        <td>肉品彻底煮熟、砧板生熟分开、避免生食风险水产品、规范屠宰检疫</td>
+      </tr>
+      <tr class="bio">
+        <td class="form">病毒污染</td>
+        <td>甲型肝炎病毒、诺如病毒等</td>
+        <td>受污染水产品（如毛蚶）、被污染水源接触的食品</td>
+        <td>甲肝致黄疸、肝功能损害；诺如病毒致急性胃肠炎</td>
+        <td>贝类彻底加热、原料清洗消毒、从业人员健康管理</td>
+      </tr>
+      <tr class="cat-row chem">
+        <td class="cat" rowspan="4">化学性污染</td>
+        <td class="form">农药残留污染</td>
+        <td>过量使用或收获前短期内施药，残留于农产品</td>
+        <td>蔬菜、水果等直接施药或土壤残留吸收的农产品</td>
+        <td>长期蓄积损害神经系统、免疫系统</td>
+        <td>执行安全间隔期、限量用药、绿色防控、食用前清洗浸泡</td>
+      </tr>
+      <tr class="chem">
+        <td class="form">兽药残留污染</td>
+        <td>养殖中使用的抗生素、激素等，未遵守休药期</td>
+        <td>鸡肉、鸡蛋、猪肉、牛奶等畜禽产品</td>
+        <td>残留超标产生毒性，诱导细菌耐药性</td>
+        <td>遵守休药期、合理用药、加强兽药残留监测</td>
+      </tr>
+      <tr class="chem">
+        <td class="form">重金属污染</td>
+        <td>工业“三废”排放、化肥农药、含铅汽油燃烧、铅锌矿开采</td>
+        <td>受污染水体鱼类（汞）、土壤种植粮食蔬菜（铅、镉）</td>
+        <td>汞损神经系统与肾脏；铅影响儿童智力发育和造血功能</td>
+        <td>治理工业污染源、监测土壤水体、执行限量标准</td>
+      </tr>
+      <tr class="chem">
+        <td class="form">食品添加剂滥用</td>
+        <td>过量添加人工合成色素、超量使用防腐剂、违规添加</td>
+        <td>加工食品、腌制品、饮料、熟食等</td>
+        <td>过敏反应、影响新陈代谢</td>
+        <td>符合GB 2760规定的品种、范围与用量，合规使用不算污染</td>
+      </tr>
+      <tr class="cat-row phys">
+        <td class="cat" rowspan="2">物理性污染</td>
+        <td class="form">杂物污染</td>
+        <td>收获混入沙石、加工过程进入毛发、金属碎片、玻璃渣等</td>
+        <td>原粮、散装食品、防护不足的加工食品</td>
+        <td>摄入后对口腔、胃肠道造成机械性损伤</td>
+        <td>原料清杂除杂、车间密闭管理、金属探测与异物剔除</td>
+      </tr>
+      <tr class="phys">
+        <td class="form">放射性污染</td>
+        <td>放射性物质开采冶炼、核爆炸、核事故泄漏</td>
+        <td>核污染地区农作物、水源及污染饲料喂养的畜禽产品</td>
+        <td>长期暴露致基因突变、癌症等严重疾病</td>
+        <td>核设施安全监管、重点地区食品放射性监测、不合格品禁流通</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer>内容基于教材正文整理并补充防控要点，供课后学习参考</footer>
+
+</div>
+</body>
+</html>
